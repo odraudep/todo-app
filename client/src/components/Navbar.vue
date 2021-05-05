@@ -57,35 +57,43 @@ export default {
     addEventListener("resize", toggleMenuBehavior);
 
     const dom = {
-      queryStyle: "style#menuBehavior"
+      toggler: ".header__toggler",
+      menu: ".header__menu",
+      style: "style#menuBehavior"
+    };
+
+    const menuClasses = {
+      menu: "open",
+      body: "menu-open"
     };
 
     function toggleMenuBehavior() {
-      const menu = document.querySelector(".header__menu");
+      const menu = document.querySelector(dom.menu);
 
+      // MAX-WIDTH OF THE RESPONSIVENESS
       if (innerWidth > 768) {
-        if (menu.classList.contains("open"))
-          menu.classList.remove("open");
+        if (menu.classList.contains(menuClasses.menu))
+          menu.classList.remove(menuClasses.menu);
 
-        if (document.body.classList.contains("menu-open"))
-          document.body.classList.remove("menu-open");
+        if (document.body.classList.contains(menuClasses.body))
+          document.body.classList.remove(menuClasses.body);
 
         return;
       }
 
-      const toggler = document.querySelector(".header__toggler");
+      const toggler = document.querySelector(dom.toggler);
 
       const menuWidth = menu.getBoundingClientRect().width;
       const togglerFromRight = innerWidth - toggler.getBoundingClientRect().right + toggler.getBoundingClientRect().width;
 
-      if (innerWidth > menuWidth + togglerFromRight && !menu.classList.contains("open")) {
-        if (document.querySelector(dom.queryStyle))
-          document.querySelector(dom.queryStyle).remove();
+      if (innerWidth > menuWidth + togglerFromRight && !menu.classList.contains(menuClasses.menu)) {
+        if (document.querySelector(dom.style))
+          document.querySelector(dom.style).remove();
 
         return;
       }
 
-      if (document.querySelector(dom.queryStyle) || menu.classList.contains("open")) return;
+      if (document.querySelector(dom.style) || menu.classList.contains(menuClasses.menu)) return;
 
       // STYLE ELEMENT
       const style = document.createElement("style");
