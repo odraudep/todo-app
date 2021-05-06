@@ -5,7 +5,7 @@
         <img src="@/assets/brand.png" alt="Brand" class="header__brand">
       </a>
 
-      <button class="header__toggler" @click="toggleMenu($event)" target="#menu">
+      <button class="header__toggler" @click="toggleMenu" target="#menu">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -70,13 +70,15 @@ export default {
   methods: {
     closeMenu() {
       const toggler = document.querySelector(this.dom.toggler);
+      const menu = document.querySelector(this.dom.menu);
+
+      if (!menu.classList.contains("open")) return;
 
       toggler.click();
     },
-    toggleMenu(e) {
-      const toggler = e.target.classList.contains(this.dom.toggler)
-        ? e.target
-        : e.target.parentElement;
+    toggleMenu() {
+      console.log("oi")
+      const toggler = document.querySelector(this.dom.toggler);
       const target = toggler.getAttribute("target");
       const menu = document.querySelector(target);
 
@@ -118,7 +120,7 @@ export default {
       const toggler = document.querySelector(dom.toggler);
 
       const menuWidth = menu.getBoundingClientRect().width;
-      const togglerFromRight = innerWidth - toggler.getBoundingClientRect().right + toggler.getBoundingClientRect().width;
+      const togglerFromRight = toggler.getBoundingClientRect().left + toggler.getBoundingClientRect().width;
 
       if (innerWidth > menuWidth + togglerFromRight && !menu.classList.contains(menuClasses.menu)) {
         if (document.querySelector(dom.style))
@@ -134,7 +136,7 @@ export default {
 
       style.textContent = `
         .header__menu.open {
-          transform: translate3d(calc(var(--menu-width) * -1), 0, 0);
+          transform: translate3d(var(--menu-width), 0, 0);
         }
         body.menu-open {
           transform: translate3d(0, 0, 0);
@@ -173,6 +175,11 @@ export default {
   border: none;
   background: none;
 }
+.header__toggler:focus,
+.toggle-dark:focus {
+  outline: -webkit-focus-ring-color auto 1px;
+  outline-offset: .1em;
+}
 .header__toggler {
   display: none;
   font-size: 2rem;
@@ -209,6 +216,7 @@ export default {
   .header__toggler {
     display: block;
     z-index: 1;
+    order: -1;
   }
   .header__menu {
     flex-direction: column;
@@ -218,7 +226,7 @@ export default {
     padding: 1rem;
     position: absolute;
     top: 0;
-    right: calc(var(--menu-width) * -1);
+    left: calc(var(--menu-width) * -1);
     background-color: var(--body-clr);
     box-shadow: -.1rem 0 .5rem rgb(25 25 25 / .15);
     transition: transform var(--duration), background-color var(--duration);
