@@ -2,6 +2,8 @@
   <div>
     <h1>Todo App</h1>
 
+    {{ $store.state.tasks }}
+
     <!-- ADD TASK -->
     <form class="form-inline" @submit.prevent="addTask">
       <input
@@ -20,26 +22,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import Task from "@/components/Task";
 
 export default {
   name: "Home",
   data() {
     return {
-      task: { checked: false, important: false },
-      tasks: [
-        {
-          title: "Wash your hands",
-          checked: true,
-          important: true,
-        },
-        {
-          title: "Brush your teeth",
-          checked: false,
-          important: false,
-        }
-      ],
+      task: { checked: false, important: false }
     };
+  },
+  computed: {
+    ...mapState(["tasks"])
   },
   methods: {
     addTask() {
