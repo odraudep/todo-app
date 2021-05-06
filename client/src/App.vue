@@ -45,7 +45,6 @@ html.alt-color-mode:root {
   --clr1: 150 50% 50%;
 }
 body {
-  height: 200vh;
   overflow-x: hidden;
   background-color: hsl(var(--body-clr));
   font-family: var(--fm);
@@ -54,6 +53,13 @@ body {
 }
 body.menu-open {
   transform: translate3d(var(--menu-width), 0, 0);
+}
+h1 {
+  margin-bottom: 1em;
+  text-align: center;
+}
+h2 {
+  margin-bottom: 1.25em;
 }
 .hidden {
   overflow: hidden;
@@ -98,13 +104,18 @@ textarea {
   display: block;
   width: 100%;
   padding: .75em 1.5em;
-  border: 1px solid rgb(25 25 25 / .25);
+  border: none;
   border-radius: var(--radius);
   outline: none;
+  background-color: hsl(var(--txt-clr));
   font-size: 1rem;
   font-family: var(--fm);
+  color: hsl(var(--body-clr));
 }
-
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: hsl(--var(--body-clr));
+}
 /* BUTTONS */
 .btn {
   cursor: pointer;
@@ -123,5 +134,20 @@ textarea {
 }
 .btn:active {
   background-color: hsl(var(--clr1) / .9);
+}
+.btn-link {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+.btn-link.success {
+  color: green;
+}
+.btn-link.danger {
+  color: red;
 }
 </style>

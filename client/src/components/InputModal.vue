@@ -4,7 +4,7 @@
       <div class="overlay" @click="toggleModal"></div>
 
       <div class="container">
-        <form class="form-inline" @submit.prevent="addTask">
+        <form class="form-inline" @submit.prevent="add">
           <div class="form-control">
             <input
               type="text"
@@ -36,30 +36,31 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "InputModal",
   data() {
     return {
       open: false,
-      task: { important: false, checked: false }
+      task: {}
     };
   },
   computed: {
     ...mapState(["loading"])
   },
   methods: {
+    ...mapActions(["addTask"]),
     toggleModal() {
       this.open = !this.open;
     },
-    addTask() {
+    add() {
       if (!this.task.title || this.task.title.trim() == "")
         return alert("What needs to be done?");
 
-      this.$emit("addTask", this.task);
+      this.addTask(this.task);
 
-      this.task = { important: false, checked: false };
+      this.task = {};
     },
   }
 };

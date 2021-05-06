@@ -3,17 +3,20 @@
     <h1>Todo App</h1>
 
     <!-- ADD TASK -->
-    <InputModal @addTask="add" />
+    <InputModal />
 
     <!-- TASKS -->
     <div class="tasks">
-      <Task v-for="(task, index) in tasks" :key="index" :task="task" />
+      <Task
+        v-for="task in tasks" :key="task.id"
+        :task="task"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 import InputModal from "@/components/InputModal";
 import Task from "@/components/Task";
@@ -22,27 +25,15 @@ export default {
   name: "Home",
   data() {
     return {
-      task: { checked: false, important: false }
+      task: {}
     };
   },
   computed: {
     ...mapState(["tasks"])
   },
-  methods: {
-    ...mapActions(["addTask"]),
-    async add(task) {
-      await this.addTask(task);
-
-      this.task = { checked: false, important: false };
-    },
-  },
+  methods: {},
   components: { Task, InputModal },
 };
 </script>
 
-<style scoped>
-h1 {
-  margin-bottom: 1em;
-  text-align: center;
-}
-</style>
+<style scoped></style>
