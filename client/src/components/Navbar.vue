@@ -14,7 +14,7 @@
           class="header__item"
           v-for="(link, index) in links" :key="index"
         >
-          <router-link :to="link.path" class="header__link">{{ link.name }}</router-link>
+          <router-link :to="link.path" class="header__link" @click="closeMenu">{{ link.name }}</router-link>
         </li>
 
         <li class="header__item">
@@ -35,6 +35,15 @@ export default {
   name: "Navbar",
   data() {
     return {
+      dom: {
+        toggler: ".header__toggler",
+        menu: ".header__menu",
+        style: "style#menuBehavior"
+      },
+      menuClasses: {
+        menu: "open",
+        body: "menu-open"
+      },
       links: [
         {
           name: "Home",
@@ -52,15 +61,20 @@ export default {
     }
   },
   methods: {
+    closeMenu() {
+      const toggler = document.querySelector(this.dom.toggler);
+
+      toggler.click();
+    },
     toggleMenu(e) {
-      const toggler = e.target.classList.contains("header__toggler")
+      const toggler = e.target.classList.contains(this.dom.toggler)
         ? e.target
         : e.target.parentElement;
       const target = toggler.getAttribute("target");
       const menu = document.querySelector(target);
 
-      menu.classList.toggle("open");
-      document.body.classList.toggle("menu-open");
+      menu.classList.toggle(this.menuClasses.menu);
+      document.body.classList.toggle(this.menuClasses.body);
     },
     toggleDark() {
       document.querySelector("html").classList.toggle("alt-color-mode");
