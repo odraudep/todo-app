@@ -2,10 +2,11 @@
   <div class="container">
     <div class="title-check">
       <button
-          aria-label="Toggle check task"
-         class="check-btn"
-         :class="{ actived: task.checked }"
-        >
+        aria-label="Toggle check task"
+        class="check-btn"
+        :class="{ actived: task.checked }"
+        @click="toggleTask"
+      >
         <i class="fas fa-check"></i>
       </button>
 
@@ -31,6 +32,12 @@ export default {
   props: {
     task: Object,
   },
+  methods: {
+    toggleTask() {
+      // PLAY SONG
+      new Audio( require("@/assets/check.mp3") ).play();
+    }
+  }
 };
 </script>
 
@@ -61,6 +68,7 @@ export default {
 .check-btn > * {
   opacity: 0;
   transition: opacity .15s, color .3s;
+  color: var(--txt-clr);
 }
 .check-btn:hover > * {
   opacity: 1;
@@ -71,6 +79,7 @@ export default {
 }
 .check-btn.actived > * {
   opacity: 1;
+  color: var(--body-clr);
 }
 .btns {
   display: flex;
