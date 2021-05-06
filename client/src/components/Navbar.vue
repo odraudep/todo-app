@@ -10,16 +10,11 @@
       </button>
 
       <ul class="header__menu" id="menu">
-        <li class="header__item">
-          <a href="/" class="header__link actived">Home</a>
-        </li>
-
-        <li class="header__item">
-          <a href="/" class="header__link">Favorites</a>
-        </li>
-
-        <li class="header__item">
-          <a href="/" class="header__link">Manage</a>
+        <li
+          class="header__item"
+          v-for="(link, index) in links" :key="index"
+        >
+          <router-link :to="link.path" class="header__link">{{ link.name }}</router-link>
         </li>
 
         <li class="header__item">
@@ -38,6 +33,24 @@
 <script>
 export default {
   name: "Navbar",
+  data() {
+    return {
+      links: [
+        {
+          name: "Home",
+          path: "/"
+        },
+        {
+          name: "Favorites",
+          path: "/favorites"
+        },
+        {
+          name: "Manage",
+          path: "/manage"
+        }
+      ]
+    }
+  },
   methods: {
     toggleMenu(e) {
       const toggler = e.target.classList.contains("header__toggler")

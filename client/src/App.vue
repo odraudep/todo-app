@@ -1,7 +1,10 @@
 <template>
   <div>
     <Navbar />
-    <h1>Todo App</h1>
+
+    <main class="container">
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -51,5 +54,10 @@ body.menu-open {
 .container {
   max-width: 1300px;
   margin: 0 auto;
+}
+main.container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  box-shadow: 0 .25rem 1rem rgb(25 25 25 / .15);
 }
 </style>
