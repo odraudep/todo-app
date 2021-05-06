@@ -14,7 +14,14 @@
           class="header__item"
           v-for="(link, index) in links" :key="index"
         >
-          <router-link :to="link.path" class="header__link" @click="closeMenu">{{ link.name }}</router-link>
+          <router-link
+            :to="link.path"
+            class="header__link"
+            :class="{ actived: $route.path == link.path }"
+            @click="closeMenu"
+          >
+            {{ link.name }}
+          </router-link>
         </li>
 
         <li class="header__item">
