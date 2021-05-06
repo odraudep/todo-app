@@ -5,7 +5,12 @@
         <img src="@/assets/brand.png" alt="Brand" class="header__brand">
       </a>
 
-      <button class="header__toggler" @click="toggleMenu" target="#menu">
+      <button
+        class="header__toggler"
+        target="#menu"
+        aria-label="Toggle Menu"
+        @click="toggleMenu"
+      >
         <i class="fas fa-bars"></i>
       </button>
 
@@ -27,6 +32,7 @@
         <li class="header__item">
           <button
             type="button" class="toggle-dark"
+            aria-label="Change to Alternative Color Scheme"
             @click="toggleDark"
           >
             <i class="fas fa-adjust"></i>

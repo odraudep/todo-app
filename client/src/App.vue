@@ -28,7 +28,7 @@ export default {
 :root {
   --body-clr: #F5F5F5;
   --txt-clr: #222;
-  --clr1: 150 50% 40%;
+  --clr1: 150 50% 35%;
 
   /* width */
   --menu-width: 20rem;
