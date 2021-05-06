@@ -3,7 +3,7 @@
     <h1>Todo App</h1>
 
     <!-- ADD TASK -->
-    <InputModal @addTask="addTask" />
+    <InputModal @addTask="add" />
 
     <!-- TASKS -->
     <div class="tasks">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 import InputModal from "@/components/InputModal";
 import Task from "@/components/Task";
@@ -29,8 +29,9 @@ export default {
     ...mapState(["tasks"])
   },
   methods: {
-    addTask(task) {
-      console.log(task);
+    ...mapActions(["addTask"]),
+    async add(task) {
+      await this.addTask(task);
 
       this.task = { checked: false, important: false };
     },

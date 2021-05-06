@@ -13,7 +13,10 @@
               v-model="task.title"
             />
           </div>
-          <button type="submit" class="btn">Add</button>
+          <button type="submit" class="btn">
+            <span v-if="!loading">Add</span>
+            <span class="loader" v-if="loading"></span>
+          </button>
         </form>
 
         <button class="btn-close" @click="toggleModal">
@@ -33,6 +36,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "InputModal",
   data() {
@@ -40,6 +45,9 @@ export default {
       open: false,
       task: { important: false, checked: false }
     };
+  },
+  computed: {
+    ...mapState(["loading"])
   },
   methods: {
     toggleModal() {
@@ -91,6 +99,14 @@ export default {
   align-items: center;
   gap: 0.5rem;
 }
+.form-inline .btn[type="submit"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5.7rem;
+  height: 2.625rem;
+  position: relative;
+}
 .btn-close {
   --close: 0.075em;
 
@@ -135,6 +151,24 @@ export default {
 .open-modal {
   display: block;
   margin: 0 auto;
+}
+
+/* loader */
+.loader::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: .25em solid #FFF;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: loader 1.2s infinite;
+}
+@keyframes loader {
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media screen and (max-width: 768px) {
   .container {
