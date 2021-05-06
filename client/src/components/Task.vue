@@ -60,7 +60,7 @@ export default {
   min-width: 1.5rem;
   height: 1.5rem;
   margin-right: 1em;
-  border: 1px solid var(--txt-clr);
+  border: 1px solid hsl(var(--txt-clr));
   border-radius: 50%;
   background: none;
   transition: background-color .3s;
@@ -68,18 +68,18 @@ export default {
 .check-btn > * {
   opacity: 0;
   transition: opacity .15s, color .3s;
-  color: var(--txt-clr);
+  color: hsl(var(--txt-clr));
 }
 .check-btn:hover > * {
   opacity: 1;
 }
 .check-btn.actived {
-  background-color: var(--txt-clr);
-  color: var(--body-clr);
+  background-color: hsl(var(--txt-clr));
+  color: hsl(var(--body-clr));
 }
 .check-btn.actived > * {
   opacity: 1;
-  color: var(--body-clr);
+  color: hsl(var(--body-clr));
 }
 .btns {
   display: flex;
@@ -97,7 +97,7 @@ export default {
   color: #FAD207;
 }
 .remove-btn > * {
-  color: var(--txt-clr);
+  color: hsl(var(--txt-clr));
 }
 @media screen and (max-width: 360px) {
   .container,

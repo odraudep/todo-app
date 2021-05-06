@@ -26,8 +26,8 @@ export default {
   box-sizing: border-box;
 }
 :root {
-  --body-clr: #F5F5F5;
-  --txt-clr: #222;
+  --body-clr: 0 0% 96%;
+  --txt-clr: 0 0% 13%;
   --clr1: 150 50% 35%;
 
   /* width */
@@ -40,16 +40,16 @@ export default {
   --fm: "Roboto", sans-serif;
 }
 html.alt-color-mode:root {
-  --body-clr: #222;
-  --txt-clr: #EFEFEF;
+  --body-clr: 0 0% 13%;
+  --txt-clr: 0 0% 94%;
   --clr1: 150 50% 50%;
 }
 body {
   height: 200vh;
   overflow-x: hidden;
-  background-color: var(--body-clr);
+  background-color: hsl(var(--body-clr));
   font-family: var(--fm);
-  color: var(--txt-clr);
+  color: hsl(var(--txt-clr));
   transition: background-color var(--duration), transform var(--duration);
 }
 body.menu-open {
@@ -116,7 +116,7 @@ textarea {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 1rem;
-  color: var(--body-clr);
+  color: hsl(var(--body-clr));
 }
 .btn:focus {
   box-shadow: 0 0 0 .25em hsl(var(--clr1) / .8);

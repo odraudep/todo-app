@@ -162,7 +162,7 @@ export default {
 .header {
   padding: .5rem 5rem;
   box-shadow: 0 .1rem .5rem rgb(25 25 25 / .15);
-  background-color: var(--body-clr);
+  background-color: hsl(var(--body-clr));
   transition: background-color var(--duration);
 }
 .header__nav {
@@ -216,7 +216,7 @@ export default {
 }
 .header__toggler .fas,
 .toggle-dark .fas {
-  color: var(--txt-clr);
+  color: hsl(var(--txt-clr));
 }
 @media screen and (max-width: 768px) {
   .header__toggler {

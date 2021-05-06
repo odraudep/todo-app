@@ -22,7 +22,13 @@
       </div>
     </div>
 
-    <button type="button" class="btn open-modal" @click="toggleModal">Add</button>
+    <button
+      type="button"
+      class="btn open-modal"
+      @click="toggleModal"
+    >
+      Add
+    </button>
   </div>
 </template>
 
@@ -61,6 +67,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
 }
 .overlay {
   position: absolute;
@@ -68,15 +75,15 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgb(0 0 0 / 0.5);
+  background-color: hsl(var(--txt-clr) / .5);
 }
 .container {
   max-width: 30rem;
   padding: 1rem;
   position: relative;
-  z-index: 1;
   border-radius: 0.25rem;
-  background-color: var(--body-clr);
+  background-color: hsl(var(--body-clr));
+  box-shadow: 0 .25rem 1rem rgb(0 0 0 / .15);
 }
 .form-inline {
   display: flex;
@@ -91,16 +98,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   position: absolute;
   top: 0;
   right: 0;
-  border: var(--close) solid var(--txt-clr);
+  border: var(--close) solid hsl(var(--txt-clr));
   border-radius: 50%;
-  box-shadow: 0 0 0 var(--close) var(--body-clr);
+  box-shadow: 0 0 0 var(--close) hsl(var(--body-clr));
   transform: translate3d(50%, -50%, 0);
-  background: var(--body-clr);
+  background: hsl(var(--body-clr));
   font-size: 3rem;
 }
 .btn-close span,
@@ -109,7 +116,7 @@ export default {
   height: var(--close);
   position: relative;
   border-radius: 0.145rem;
-  background-color: var(--txt-clr);
+  background-color: hsl(var(--txt-clr));
 }
 .btn-close span {
   transform: rotate(45deg);
@@ -122,7 +129,7 @@ export default {
   top: 0;
   left: 0;
   transform: rotate(90deg);
-  background-color: var(--txt-clr);
+  background-color: hsl(var(--txt-clr));
 }
 /* ------- */
 .open-modal {
