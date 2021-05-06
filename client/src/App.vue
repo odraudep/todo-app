@@ -45,6 +45,7 @@ html.alt-color-mode:root {
   --clr1: 150 50% 50%;
 }
 body {
+  height: 200vh;
   overflow-x: hidden;
   background-color: var(--body-clr);
   font-family: var(--fm);
@@ -54,7 +55,11 @@ body {
 body.menu-open {
   transform: translate3d(var(--menu-width), 0, 0);
 }
+.hidden {
+  overflow: hidden;
+}
 .container {
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -65,26 +70,45 @@ main.container {
   box-shadow: 0 .25rem 1rem rgb(25 25 25 / .15);
 }
 /* INPUTS */
+.form-control {
+  --radius: .2em;
+
+  cursor: text;
+  width: 100%;
+  position: relative;
+  border-radius: var(--radius);
+}
+.form-control::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  box-shadow: 0 0 0 .2rem hsl(var(--clr1) / .9);
+  border-radius: var(--radius);
+  opacity: 0;
+}
+.form-control:focus-within::after {
+  opacity: 1;
+}
 input[type="text"],
 textarea {
   display: block;
   width: 100%;
   padding: .75em 1.5em;
-  border: 1px solid #ccc;
-  border-radius: .2em;
+  border: 1px solid rgb(25 25 25 / .25);
+  border-radius: var(--radius);
   outline: none;
   font-size: 1rem;
   font-family: var(--fm);
-}
-input[type="text"]:focus,
-textarea:focus {
-  box-shadow: 0 0 0 .2rem hsl(var(--clr1) / .9);
 }
 
 /* BUTTONS */
 .btn {
   cursor: pointer;
-  padding: .5em 1.75em;
+  padding: .75em 1.75em;
   border: none;
   border-radius: .2em;
   outline: none;
