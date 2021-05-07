@@ -43,7 +43,7 @@ const actions = {
 			setTimeout(() => {
 				commit("updTasks", newTasks);
 				resolve();
-			}, 500);
+			}, 50);
 		});
 	},
 	toggleFav({ state, commit }, task) {

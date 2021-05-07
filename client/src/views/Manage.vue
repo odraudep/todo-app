@@ -8,7 +8,7 @@
 
         <div class="tasks">
           <Task
-            v-for="task in uncheckedTasks" :key="task.id"
+            v-for="(task, i) in uncheckedTasks" :key="i"
             :task="task"
           />
         </div>
@@ -28,7 +28,7 @@
 
         <div class="tasks">
           <Task
-            v-for="task in checkedTasks" :key="task.id"
+            v-for="(task, i) in checkedTasks" :key="i"
             :task="task"
           />
         </div>
@@ -96,5 +96,10 @@ export default {
   justify-content: center;
   gap: 1.5rem;
   margin-top: auto;
+}
+@media screen and (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+  }
 }
 </style>

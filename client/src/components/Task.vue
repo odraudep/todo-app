@@ -51,7 +51,11 @@ export default {
       await this.toggleTask(this.task);
 
       // PLAY SONG
-      if (this.task.checked)
+      const ind = this.$store.state.tasks.findIndex(task => task.id = this.task.id);
+
+      console.log(this.tasks);
+
+      if (this.$store.state.tasks[ind].checked)
         new Audio( require("@/assets/check.mp3") ).play();
     },
     remove() {

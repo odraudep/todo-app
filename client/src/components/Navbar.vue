@@ -83,13 +83,18 @@ export default {
       toggler.click();
     },
     toggleMenu() {
-      console.log("oi")
       const toggler = document.querySelector(this.dom.toggler);
       const target = toggler.getAttribute("target");
       const menu = document.querySelector(target);
 
       menu.classList.toggle(this.menuClasses.menu);
       document.body.classList.toggle(this.menuClasses.body);
+
+      document.body.classList.toggle("hidden");
+
+      scrollTo({
+        top: 0, behavior: "smooth"
+      });
     },
     toggleDark() {
       document.querySelector("html").classList.toggle("alt-color-mode");
@@ -116,6 +121,9 @@ export default {
       if (innerWidth > 768) {
         if (menu.classList.contains(menuClasses.menu))
           menu.classList.remove(menuClasses.menu);
+
+        if (document.body.classList.contains("hidden"))
+          document.body.classList.remove("hidden");
 
         if (document.body.classList.contains(menuClasses.body))
           document.body.classList.remove(menuClasses.body);
@@ -233,7 +241,7 @@ export default {
     position: absolute;
     top: 0;
     left: calc(var(--menu-width) * -1);
-    background-color: var(--body-clr);
+    background-color: hsl(var(--body-clr));
     box-shadow: -.1rem 0 .5rem rgb(25 25 25 / .15);
     transition: transform var(--duration), background-color var(--duration);
   }
