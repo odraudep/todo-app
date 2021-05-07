@@ -16,10 +16,9 @@
           />
         </div>
 
-        <div class="btns">
+        <div class="btns" v-if="uncheckedTasks.length > 0">
           <button
             class="btn-link success"
-            v-if="uncheckedTasks.length > 0"
             @click="checkAll"
           >
             Check All
@@ -39,10 +38,9 @@
           />
         </div>
 
-        <div class="btns">
+        <div class="btns" v-if="checkedTasks.length > 0">
           <button
             class="btn-link success"
-            v-if="checkedTasks.length > 0"
             @click="uncheckAllTasks"
           >
             Uncheck All
@@ -50,7 +48,6 @@
 
           <button
             class="btn-link danger"
-            v-if="checkedTasks.length > 0"
             @click="removeAll"
           >
             Remove All
