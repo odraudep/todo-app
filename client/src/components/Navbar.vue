@@ -195,13 +195,16 @@ export default {
   outline-offset: .1em;
 }
 .header__toggler {
+  order: -1;
   display: none;
+  z-index: 2;
   font-size: 2rem;
 }
 .header__menu {
   list-style: none;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 .header__item {
   margin: 0 1.5em;
@@ -229,8 +232,6 @@ export default {
 @media screen and (max-width: 768px) {
   .header__toggler {
     display: block;
-    z-index: 1;
-    order: -1;
   }
   .header__menu {
     flex-direction: column;
