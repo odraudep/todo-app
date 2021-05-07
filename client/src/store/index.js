@@ -1,22 +1,39 @@
 import { createStore } from "vuex";
+import { nanoid } from "nanoid";
 
 const state = {
 	tasks: [
-		{
-			id: 123,
-			title: "Wash your hands",
-			important: false,
-			checked: false
-		}
+		// {
+		// 	id: nanoid(6),
+		// 	title: "Wash your hands",
+		// 	important: false,
+		// 	checked: false
+		// },
+		// {
+		// 	id: nanoid(6),
+		// 	title: "Eat bread",
+		// 	important: false,
+		// 	checked: false
+		// }
 	],
 	loading: false
 };
 
+const getters = {
+	favTasks(state) {
+		return state.tasks.filter(todo => todo.important);
+	},
+	uncheckedTasks(state) {
+		return state.tasks.filter(todo => !todo.checked);
+	},
+	checkedTasks(state) {
+		return state.tasks.filter(todo => todo.checked);
+	}
+};
+
 const actions = {
 	addTask({ state, commit }, task) {
-		task.id = Date.now();
-		task.checked = false;
-		task.important = false;
+		task.id = nanoid(6);
 
 		if (!task.title || task.title.trim() == "") return;
 
@@ -130,18 +147,6 @@ const actions = {
 const mutations = {
 	updTasks(state, tasks) {
 		state.tasks = tasks;
-	}
-};
-
-const getters = {
-	favTasks(state) {
-		return state.tasks.filter(todo => todo.important);
-	},
-	uncheckedTasks(state) {
-		return state.tasks.filter(todo => !todo.checked);
-	},
-	checkedTasks(state) {
-		return state.tasks.filter(todo => todo.checked);
 	}
 };
 

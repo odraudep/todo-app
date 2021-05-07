@@ -8,7 +8,7 @@
           <div class="form-control">
             <input
               type="text"
-              placeholder="What needs to be done?"
+              :placeholder="txt"
               class="input-text"
               v-model="task.title"
             />
@@ -40,33 +40,56 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "InputModal",
+  props: {
+    txt: String
+  },
   data() {
     return {
       open: false,
-      task: {}
+      task: {
+        id: "",
+        title: "",
+        important: false,
+        checked: false
+      }
     };
   },
   computed: {
     ...mapState(["loading"])
   },
   methods: {
-    ...mapActions(["addTask"]),
     toggleModal() {
       this.open = !this.open;
     },
     add() {
       if (!this.task.title || this.task.title.trim() == "")
-        return alert("What needs to be done?");
+        return alert(this.txt);
 
-      this.addTask(this.task);
+      this.$emit("addTask", this.task);
 
-      this.task = {};
+      this.task = {
+        id: "",
+        title: "",
+        important: false,
+        checked: false
+      };
     },
   }
 };
 </script>
 
 <style scoped>
+input[type="text"],
+textarea {
+  border: none;
+  outline: none;
+  background-color: hsl(var(--txt-clr));
+  color: hsl(var(--body-clr));
+}
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: hsl(--var(--body-clr));
+}
 .modal {
   display: flex;
   justify-content: center;

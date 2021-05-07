@@ -8,8 +8,11 @@
 
         <div class="tasks">
           <Task
-            v-for="(task, i) in uncheckedTasks" :key="i"
+            v-for="task in uncheckedTasks" :key="task.id"
             :task="task"
+            @check="check"
+            @toggleFav="toggleFav"
+            @remove="remove"
           />
         </div>
 
@@ -28,8 +31,11 @@
 
         <div class="tasks">
           <Task
-            v-for="(task, i) in checkedTasks" :key="i"
+            v-for="task in checkedTasks" :key="task.id"
             :task="task"
+            @check="check"
+            @toggleFav="toggleFav"
+            @remove="remove"
           />
         </div>
 
@@ -66,7 +72,25 @@ export default {
     ...mapGetters(["uncheckedTasks", "checkedTasks"])
   },
   methods: {
-    ...mapActions(["checkAllTasks", "uncheckAllTasks", "removeAllTasks"]),
+    ...mapActions([
+      "toggleTask",
+      "toggleFav",
+      "removeTask",
+      "checkAllTasks",
+      "uncheckAllTasks",
+      "removeAllTasks"
+    ]),
+    async check(task) {
+      await this.toggleTask(task);
+
+      // PLAY SONG
+      if (!task.checked)
+        new Audio( require("@/assets/check.mp3") ).play();
+    },
+    remove(task) {
+      if (confirm("Are you sure?"))
+        this.removeTask(task);
+    },
     removeAll() {
       if (confirm("Are you sure?"))
         this.removeAllTasks();

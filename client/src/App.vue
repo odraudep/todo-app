@@ -104,17 +104,9 @@ textarea {
   display: block;
   width: 100%;
   padding: .75em 1.5em;
-  border: none;
   border-radius: var(--radius);
-  outline: none;
-  background-color: hsl(var(--txt-clr));
   font-size: 1rem;
   font-family: var(--fm);
-  color: hsl(var(--body-clr));
-}
-input[type="text"]::placeholder,
-textarea::placeholder {
-  color: hsl(--var(--body-clr));
 }
 /* BUTTONS */
 .btn {

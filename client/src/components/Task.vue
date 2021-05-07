@@ -5,19 +5,19 @@
         aria-label="Toggle check task"
         class="check-btn"
         :class="{ actived: task.checked }"
-        @click="check"
+        @click="$emit('check', task)"
       >
         <i class="fas fa-check"></i>
       </button>
 
-      <span class="title">{{ upper(task.title) }}</span>
+      <span class="title">{{ upper(task.title) }} {{ task.id }}</span>
     </div>
 
     <div class="btns">
       <button
         aria-label="Set task as imporant"
         class="fav-btn"
-        @click="toggleFav(task)"
+        @click="$emit('toggleFav', task)"
       >
         <i class="far fa-star" v-if="!task.important"></i>
         <i class="fas fa-star" v-if="task.important"></i>
@@ -26,7 +26,7 @@
       <button
         aria-label="Remove task"
         class="remove-btn"
-        @click="remove"
+        @click="$emit('remove', task)"
       >
         <i class="fas fa-trash-alt"></i>
       </button>
@@ -35,33 +35,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
 export default {
   name: "Task",
   props: {
     task: Object,
   },
-  computed: {
-    ...mapState(["tasks"])
-  },
   methods: {
-    ...mapActions(["toggleTask", "toggleFav", "removeTask"]),
-    async check() {
-      await this.toggleTask(this.task);
-
-      // PLAY SONG
-      const ind = this.$store.state.tasks.findIndex(task => task.id = this.task.id);
-
-      console.log(this.tasks);
-
-      if (this.$store.state.tasks[ind].checked)
-        new Audio( require("@/assets/check.mp3") ).play();
-    },
-    remove() {
-      if (confirm("Are you sure?"))
-        this.removeTask(this.task);
-    },
     upper(x) {
       return x[0].toUpperCase() + x.slice(1);
     }
