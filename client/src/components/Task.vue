@@ -10,7 +10,7 @@
         <i class="fas fa-check"></i>
       </button>
 
-      <span class="title">{{ upper(task.title) }} {{ task.id }}</span>
+      <span class="title">{{ upper(task.title) }}</span>
     </div>
 
     <div class="btns">

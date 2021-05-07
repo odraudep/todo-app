@@ -20,7 +20,7 @@
           <button
             class="btn-link success"
             v-if="uncheckedTasks.length > 0"
-            @click="checkAllTasks"
+            @click="checkAll"
           >
             Check All
           </button>
@@ -90,6 +90,12 @@ export default {
     remove(task) {
       if (confirm("Are you sure?"))
         this.removeTask(task);
+    },
+    async checkAll() {
+      await this.checkAllTasks();
+
+      // PLAY SONG
+      new Audio( require("@/assets/check.mp3") ).play();
     },
     removeAll() {
       if (confirm("Are you sure?"))
