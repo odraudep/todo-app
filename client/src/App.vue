@@ -13,7 +13,10 @@ import Navbar from "@/components/Navbar";
 
 export default {
   name: "App",
-  components: { Navbar }
+  components: { Navbar },
+  created() {
+    this.$store.dispatch("loadData");
+  }
 };
 </script>
 

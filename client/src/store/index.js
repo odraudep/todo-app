@@ -1,21 +1,10 @@
 import { createStore } from "vuex";
 import { nanoid } from "nanoid";
 
+const api = "http://localhost:3333";
+
 const state = {
-	tasks: [
-		// {
-		// 	id: nanoid(6),
-		// 	title: "Wash your hands",
-		// 	important: false,
-		// 	checked: false
-		// },
-		// {
-		// 	id: nanoid(6),
-		// 	title: "Eat bread",
-		// 	important: false,
-		// 	checked: false
-		// }
-	],
+	tasks: [],
 	loading: false
 };
 
@@ -32,22 +21,43 @@ const getters = {
 };
 
 const actions = {
-	addTask({ state, commit }, task) {
+	async loadData({ commit }) {
+		const res = await fetch(api)
+			.then(data => data.text())
+			.then(data => {
+				try {
+					JSON.parse(data);
+				} catch {
+					return;
+				}
+
+				return JSON.parse(data);
+			});
+
+		if (!res) return;
+
+		const tasks = res.tasks;
+
+		commit("updTasks", tasks);
+	},
+	async addTask({ state, commit }, task) {
 		task.id = nanoid(6);
 
 		if (!task.title || task.title.trim() == "") return;
 
+		const { id, title, important, checked } = task;
+
+		commit("changeLoading", true);
+
+		await fetch(
+			`${api}/?id=${id}&title=${title}&important=${important}&checked=${checked}`,
+			{	method: "POST" }
+		);
+
 		const newTasks = [...state.tasks, task];
 
-		return new Promise(resolve => {
-			state.loading = true;
-
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				state.loading = false;
-				resolve();
-			}, 500);
-		});
+		commit("updTasks", newTasks);
+		commit("changeLoading", false);
 	},
 	toggleTask({ state, commit }, task) {
 		const newTasks = state.tasks.map(
@@ -147,6 +157,9 @@ const actions = {
 const mutations = {
 	updTasks(state, tasks) {
 		state.tasks = tasks;
+	},
+	changeLoading(state, bool) {
+		state.loading = bool;
 	}
 };
 
