@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import { nanoid } from "nanoid";
 
-const api = "http://localhost:3333";
+const api = "http://localhost:3000";
 
 const state = {
 	tasks: [],
@@ -34,7 +34,7 @@ const actions = {
 				return JSON.parse(data);
 			});
 
-		if (!res) return;
+		if (!res || !res.tasks) return;
 
 		const tasks = res.tasks;
 
@@ -50,8 +50,7 @@ const actions = {
 		commit("changeLoading", true);
 
 		await fetch(
-			`${api}/?id=${id}&title=${title}&important=${important}&checked=${checked}`,
-			{	method: "POST" }
+			`${api}/?id=${id}&title=${title}&important=${important}&checked=${checked}`
 		);
 
 		const newTasks = [...state.tasks, task];
@@ -59,46 +58,52 @@ const actions = {
 		commit("updTasks", newTasks);
 		commit("changeLoading", false);
 	},
-	toggleTask({ state, commit }, task) {
+	async toggleTask({ state, commit }, task) {
+		const { id, title, important, checked } = task;
+
+		await fetch(
+			`${api}/?id=${id}&title=${title}&important=${important}&checked=${!checked}`
+		);
+
 		const newTasks = state.tasks.map(
-			todo => todo.id == task.id
+			todo => todo.id == id
 				? { ...todo, checked: !todo.checked }
 				: todo
 		);
-
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 50);
-		});
+		commit("updTasks", newTasks);
 	},
-	toggleFav({ state, commit }, task) {
+	async toggleFav({ state, commit }, task) {
+		const { id, title, important, checked } = task;
+
+		await fetch(
+			`${api}/?id=${id}&title=${title}&important=${!important}&checked=${checked}`
+		);
+
 		const newTasks = state.tasks.map(
-			todo => todo.id == task.id
+			todo => todo.id == id
 				?	{ ...todo, important: !todo.important }
 				: todo
 		);
 
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 500);
-		});
+		commit("updTasks", newTasks);
 	},
-	removeTask({ state, commit }, task) {
-		const newTasks = state.tasks.filter(
-			todo => todo.id != task.id
+	async removeTask({ state, commit }, task) {
+		const { id } = task;
+
+		await fetch(
+			`${api}/?id=${id}&del`
 		);
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 500);
-		});
+
+		const newTasks = state.tasks.filter(
+			todo => todo.id != id
+		);
+		commit("updTasks", newTasks);
 	},
-	checkAllTasks({ state, getters, commit }) {
+	async checkAllTasks({ state, getters, commit }) {
+		await fetch(
+			`${api}/?checkall`
+		);
+
 		const uncheckedTasks = getters.uncheckedTasks;
 
 		let newTasks = state.tasks;
@@ -110,14 +115,13 @@ const actions = {
 			);
 		});
 
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 500);
-		});
+		commit("updTasks", newTasks);
 	},
-	uncheckAllTasks({ state, getters, commit }) {
+	async uncheckAllTasks({ state, getters, commit }) {
+		await fetch(
+			`${api}/?uncheckall`
+		);
+
 		const checkedTasks = getters.checkedTasks;
 
 		let newTasks = state.tasks;
@@ -129,14 +133,13 @@ const actions = {
 			);
 		});
 
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 500);
-		});
+		commit("updTasks", newTasks);
 	},
-	removeAllTasks({ state, getters, commit }) {
+	async removeAllTasks({ state, getters, commit }) {
+		await fetch(
+			`${api}/?removeall`
+		);
+
 		const tasks = getters.checkedTasks;
 
 		let newTasks = state.tasks;
@@ -145,12 +148,7 @@ const actions = {
 			newTasks = newTasks.filter(todo => todo.id != task.id);
 		});
 
-		return new Promise(resolve => {
-			setTimeout(() => {
-				commit("updTasks", newTasks);
-				resolve();
-			}, 500);
-		});
+		commit("updTasks", newTasks);
 	}
 };
 

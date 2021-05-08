@@ -1,9 +1,9 @@
 {
   "tasks": [
     {
-      "id": 123,
+      "id": "123",
       "title": "Wash your hands",
-      "important": false,
+      "important": true,
       "checked": false
     }
   ]
