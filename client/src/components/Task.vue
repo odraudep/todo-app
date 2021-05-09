@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ checked: task.checked }">
     <div class="title-check">
       <button
         aria-label="Toggle check task"
@@ -56,7 +56,18 @@ export default {
   margin: 1rem auto;
   padding: 1rem;
   border-radius: .25rem;
-  box-shadow: 0 0.25rem 1rem rgb(25 25 25 / 0.15);
+  box-shadow: 0 .145rem .5rem rgb(25 25 25 / .15);
+}
+.container.checked .check-btn {
+  background-color: hsl(var(--txt-clr));
+  color: hsl(var(--body-clr));
+}
+.container.checked .check-btn > * {
+  opacity: 1;
+  color: hsl(var(--body-clr));
+}
+.container.checked .title {
+  text-decoration: line-through;
 }
 .title-check {
   display: flex;
@@ -79,14 +90,6 @@ export default {
 }
 .check-btn:hover > * {
   opacity: 1;
-}
-.check-btn.actived {
-  background-color: hsl(var(--txt-clr));
-  color: hsl(var(--body-clr));
-}
-.check-btn.actived > * {
-  opacity: 1;
-  color: hsl(var(--body-clr));
 }
 .btns {
   display: flex;
