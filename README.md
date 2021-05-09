@@ -38,31 +38,23 @@ yarn install
 To run this project you have to run 2 commands, that means that you have to open 2 terminals.
 
 ```bash
-cd client
-```
-```bash
-npm run serve
-```
-
-and
-
-```bash
 npm run server
 ```
 
-<hr />
-
 ```bash
 cd client
-```
-```bash
-yarn serve
+npm run serve
 ```
 
-and
+or
 
 ```bash
 yarn server
+```
+
+```bash
+cd client
+yarn serve
 ```
 
 Runs the app in the development mode.
