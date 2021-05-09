@@ -1,9 +1,9 @@
 <p align="center">
-<img src="./.github/brand.png" width="175" />
+  <img src="./.github/brand.png" width="175" />
 </p>
 
 <h1 align="center">
-Todo App
+  Todo App
 </h1>
 
 Manage your tasks with this amazing task management.
